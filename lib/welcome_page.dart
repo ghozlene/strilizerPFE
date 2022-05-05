@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:qr_code/delayed_animation.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,12 +41,12 @@ class WelcomePage extends StatelessWidget {
                     top:30,
                     bottom:20,
                   ),
-                  child: const Text("c'est primordial, pour qu'on vivons dans un milieu clarifier",
+                  child:  Text("c'est primordial, pour qu'on vivons dans un milieu clarifier",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                         color: Colors.grey,
                         fontSize:16,
-                    ),
+                    ), 
                   ),
                 ),
               ),
@@ -65,7 +64,7 @@ class WelcomePage extends StatelessWidget {
     Navigator.push(
     context,
     MaterialPageRoute(
-    builder: (context) => SocialPage(),
+    builder: (context) => Text('******'),
     ),
     );
     },
