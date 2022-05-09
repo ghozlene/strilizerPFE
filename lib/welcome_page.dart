@@ -74,7 +74,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(30.0),
+                padding: EdgeInsets.all(1),
                 child: Column(
                   children: <Widget>[
                     FadeAnimation(
@@ -103,6 +103,7 @@ class HomePage extends StatelessWidget {
                                         child: FadeAnimation(
                                           1.3,
                                           Container(
+                                            padding: EdgeInsets.all(2),
                                             width: 120,
                                             height: 120,
                                             decoration: BoxDecoration(
@@ -123,6 +124,7 @@ class HomePage extends StatelessWidget {
                     FadeAnimation(
                         2,
                         Container(
+                          padding: EdgeInsets.all(5),
                           color: Colors.transparent,
                           width: MediaQuery.of(context).size.width,
                           height: 60,
@@ -140,7 +142,7 @@ class HomePage extends StatelessWidget {
                             },
                             color: Color.fromRGBO(143, 148, 251, 1),
                             child: Text(
-                              "Start scanning",
+                              "scanner ",
                               style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: 'Raleway',
