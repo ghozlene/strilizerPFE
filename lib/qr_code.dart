@@ -66,8 +66,8 @@ class _QRViewExampleState extends State<QRViewExample> {
                               builder: (context, snapshot) {
                                 return Text(
                                   '${snapshot.data}' == 'true'
-                                      ? 'flash(activé)'
-                                      : 'flash(désactivé)',
+                                      ? 'flash(On)'
+                                      : 'flash(Off)',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: 'Raleway',
