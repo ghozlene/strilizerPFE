@@ -34,197 +34,199 @@ class _QRViewExampleState extends State<QRViewExample> {
     return Scaffold(
       body: Builder(
         builder: (context) => Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              if (result != null)
-                result!.code ==
-                        'https://www.3dwave.tech/?fbclid=IwAR2WwicJr5W6n3LQCc9ep8IdvTaBg5k4jqdIFgVzfO6gpbdinatkJU-YP6g'
-                    ? Center(
-                        child: Expanded(
-                          flex: 20,
-                          child: Stack(alignment: Alignment.center, children: [
-                            Positioned(
-                                child: Dialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(4.0)),
-                                    child: Stack(
-                                      overflow: Overflow.visible,
-                                      alignment: Alignment.topCenter,
-                                      children: [
-                                        Container(
-                                          height: 200,
-                                          child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                10, 70, 10, 10),
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  'success !!!',
+          child: (result != null)
+              ? result!.code ==
+                      'https://www.3dwave.tech/?fbclid=IwAR2WwicJr5W6n3LQCc9ep8IdvTaBg5k4jqdIFgVzfO6gpbdinatkJU-YP6g'
+                  ? Center(
+                      child: Expanded(
+                        child: Stack(alignment: Alignment.center, children: [
+                          Positioned(
+                              child: Dialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(4.0)),
+                                  child: Stack(
+                                    overflow: Overflow.visible,
+                                    alignment: Alignment.topCenter,
+                                    children: [
+                                      Container(
+                                        height: 200,
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              10, 70, 10, 10),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                'success !!!',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                'valid code',
+                                                style: TextStyle(fontSize: 20),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              RaisedButton(
+                                                onPressed: () {
+                                                  Navigator.pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MyFlutterForm(),
+                                                      ));
+                                                },
+                                                color: Colors.green,
+                                                child: Text(
+                                                  'Okay',
                                                   style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20),
+                                                      color: Colors.white),
                                                 ),
-                                                SizedBox(
-                                                  height: 5,
-                                                ),
-                                                Text(
-                                                  'valid code',
-                                                  style:
-                                                      TextStyle(fontSize: 20),
-                                                ),
-                                                SizedBox(
-                                                  height: 20,
-                                                ),
-                                                RaisedButton(
-                                                  onPressed: () {
-                                                    Navigator.pushReplacement(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              MyFlutterForm(),
-                                                        ));
-                                                  },
-                                                  color: Colors.green,
-                                                  child: Text(
-                                                    'Okay',
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
+                                              )
+                                            ],
                                           ),
                                         ),
-                                        Positioned(
-                                            top: -60,
-                                            child: CircleAvatar(
-                                              backgroundColor: Colors.green,
-                                              radius: 60,
-                                              child: Icon(
-                                                Icons.assistant_photo,
-                                                color: Colors.white,
-                                                size: 50,
-                                              ),
-                                            )),
-                                      ],
-                                    ))),
-                          ]),
-                        ),
-                      )
-                    : Dialog(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0)),
-                        child: Stack(
-                          overflow: Overflow.visible,
-                          alignment: Alignment.topCenter,
-                          children: [
-                            Container(
-                              height: 200,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 70, 10, 10),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'fail !!!',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'Wrong code',
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    RaisedButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      color: Colors.redAccent,
-                                      child: Text(
-                                        'Cancel',
-                                        style: TextStyle(color: Colors.white),
                                       ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                                top: -60,
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.redAccent,
-                                  radius: 60,
-                                  child: Icon(
-                                    Icons.assistant_photo,
-                                    color: Colors.white,
-                                    size: 50,
-                                  ),
-                                )),
-                          ],
-                        )),
-              Expanded(flex: 4, child: _buildQrView(context)),
-              Expanded(
-                flex: 1,
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      if (result != null)
-                        Text('ok')
-                      else
-                        const Text('Scan a code'),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
+                                      Positioned(
+                                          top: -60,
+                                          child: CircleAvatar(
+                                            backgroundColor: Colors.green,
+                                            radius: 60,
+                                            child: Icon(
+                                              Icons.assistant_photo,
+                                              color: Colors.white,
+                                              size: 50,
+                                            ),
+                                          )),
+                                    ],
+                                  ))),
+                        ]),
+                      ),
+                    )
+                  : Dialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4.0)),
+                      child: Stack(
+                        overflow: Overflow.visible,
+                        alignment: Alignment.topCenter,
+                        children: [
                           Container(
-                            margin: const EdgeInsets.all(8),
-                            child: FlatButton(
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(30.0),
-                              ),
-                              onPressed: () async {
-                                await controller?.toggleFlash();
-                                setState(() {});
-                              },
-                              color: Color.fromRGBO(143, 148, 251, 1),
-                              child: FutureBuilder(
-                                future: controller?.getFlashStatus(),
-                                builder: (context, snapshot) {
-                                  return Text(
-                                    '${snapshot.data}' == 'true'
-                                        ? 'flash(On)'
-                                        : 'flash(Off)',
+                            height: 200,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(10, 70, 10, 10),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'fail !!!',
                                     style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Raleway',
-                                      fontStyle: FontStyle.italic,
-                                      fontSize: 24.0,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    'Wrong code',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  RaisedButton(
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                QRViewExample(),
+                                          ));
+                                    },
+                                    color: Colors.redAccent,
+                                    child: Text(
+                                      'Cancel',
+                                      style: TextStyle(color: Colors.white),
                                     ),
-                                  );
-                                },
+                                  )
+                                ],
                               ),
                             ),
                           ),
+                          Positioned(
+                              top: -60,
+                              child: CircleAvatar(
+                                backgroundColor: Colors.redAccent,
+                                radius: 60,
+                                child: Icon(
+                                  Icons.assistant_photo,
+                                  color: Colors.white,
+                                  size: 50,
+                                ),
+                              )),
                         ],
+                      ))
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(flex: 4, child: _buildQrView(context)),
+                    Expanded(
+                      flex: 1,
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            if (result != null)
+                              Text('ok')
+                            else
+                              const Text('Scan a code'),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  margin: const EdgeInsets.all(8),
+                                  child: FlatButton(
+                                    shape: new RoundedRectangleBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(30.0),
+                                    ),
+                                    onPressed: () async {
+                                      await controller?.toggleFlash();
+                                      setState(() {});
+                                    },
+                                    color: Color.fromRGBO(143, 148, 251, 1),
+                                    child: FutureBuilder(
+                                      future: controller?.getFlashStatus(),
+                                      builder: (context, snapshot) {
+                                        return Text(
+                                          '${snapshot.data}' == 'true'
+                                              ? 'flash(On)'
+                                              : 'flash(Off)',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: 'Raleway',
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 24.0,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
         ),
       ),
     );
