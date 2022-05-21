@@ -18,7 +18,7 @@ class QRViewExample extends StatefulWidget {
 
 class _QRViewExampleState extends State<QRViewExample> {
   Barcode? result;
-  var clicked = 1;
+  var clicked = 0;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
@@ -221,12 +221,12 @@ class _QRViewExampleState extends State<QRViewExample> {
                                     onToggle: (index) async {
                                       if (index == 0) {
                                         if (clicked == 1) {
+                                          clicked = 0;
                                           await controller?.toggleFlash();
                                         }
-                                        clicked = 0;
                                       } else {
                                         if (clicked == 0) {
-                                          clicked++;
+                                          clicked = clicked + 1;
                                           await controller?.toggleFlash();
                                         }
                                       }
