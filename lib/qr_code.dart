@@ -1,10 +1,13 @@
 import 'dart:developer';
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_code/formule.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class QRViewExample extends StatefulWidget {
   const QRViewExample({Key? key}) : super(key: key);
@@ -15,6 +18,7 @@ class QRViewExample extends StatefulWidget {
 
 class _QRViewExampleState extends State<QRViewExample> {
   Barcode? result;
+  var clicked = 1;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
@@ -191,32 +195,42 @@ class _QRViewExampleState extends State<QRViewExample> {
                               children: <Widget>[
                                 Container(
                                   margin: const EdgeInsets.all(8),
-                                  child: FlatButton(
-                                    shape: new RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(30.0),
-                                    ),
-                                    onPressed: () async {
-                                      await controller?.toggleFlash();
-                                      setState(() {});
+                                  child: ToggleSwitch(
+                                    changeOnTap: true,
+                                    minWidth: 90.0,
+                                    minHeight: 70.0,
+                                    initialLabelIndex: 0,
+                                    cornerRadius: 20.0,
+                                    activeFgColor: Colors.white,
+                                    inactiveBgColor: Colors.grey,
+                                    inactiveFgColor: Colors.white,
+                                    totalSwitches: 2,
+                                    icons: [
+                                      FontAwesomeIcons.lightbulb,
+                                      FontAwesomeIcons.solidLightbulb,
+                                    ],
+                                    iconSize: 30.0,
+                                    activeBgColors: [
+                                      [Colors.black45, Colors.black26],
+                                      [Colors.yellow, Colors.orange]
+                                    ],
+                                    animate:
+                                        true, // with just animate set to true, default curve = Curves.easeIn
+                                    curve: Curves.bounceInOut,
+                                    // animate must be set to true when using custom curve
+                                    onToggle: (index) async {
+                                      if (index == 0) {
+                                        if (clicked == 1) {
+                                          await controller?.toggleFlash();
+                                        }
+                                        clicked = 0;
+                                      } else {
+                                        if (clicked == 0) {
+                                          clicked++;
+                                          await controller?.toggleFlash();
+                                        }
+                                      }
                                     },
-                                    color: Color.fromRGBO(143, 148, 251, 1),
-                                    child: FutureBuilder(
-                                      future: controller?.getFlashStatus(),
-                                      builder: (context, snapshot) {
-                                        return Text(
-                                          '${snapshot.data}' == 'true'
-                                              ? 'flash(On)'
-                                              : 'flash(Off)',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontFamily: 'Raleway',
-                                            fontStyle: FontStyle.italic,
-                                            fontSize: 24.0,
-                                          ),
-                                        );
-                                      },
-                                    ),
                                   ),
                                 ),
                               ],
