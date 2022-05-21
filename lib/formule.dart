@@ -18,7 +18,8 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
   var outPutController = TextEditingController();
   var dosageController = TextEditingController();
   var exposureController = TextEditingController();
-  var L = 89;
+  var lengthController = TextEditingController();
+
   var pi = 3.143;
 
   @override
@@ -28,6 +29,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
     outPutController.dispose();
     dosageController.dispose();
     exposureController.dispose();
+    lengthController.dispose();
     super.dispose();
   }
 
@@ -117,6 +119,25 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                   border: OutlineInputBorder(),
                                   suffixStyle:
                                       const TextStyle(color: Colors.green),
+                                  suffix: Text('cm'),
+                                  labelText: 'Length of the lamp',
+                                ),
+                                controller: lengthController,
+                                keyboardType: TextInputType.number,
+                                validator: validateFloat,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp('[. 0-9]'))
+                                ],
+                              ),
+                              SizedBox(
+                                height: 30.0,
+                              ),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  suffixStyle:
+                                      const TextStyle(color: Colors.green),
                                   suffix: Text('min'),
                                   labelText: 'Exposure time',
                                 ),
@@ -142,17 +163,24 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                         distController = distController;
                                         dosageController = dosageController;
                                         outPutController = outPutController;
-                                        exposureController.text = ((2 *
-                                                    pi *
-                                                    L *
-                                                    double.parse(
-                                                        distController.text) *
-                                                    double.parse(
-                                                        dosageController
-                                                            .text)) /
-                                                double.parse(
-                                                    outPutController.text))
-                                            .toString();
+                                        lengthController = lengthController;
+                                        if (distController.text != '' &&
+                                            dosageController.text != '' &&
+                                            outPutController.text != '' &&
+                                            lengthController.text != '')
+                                          exposureController.text = ((2 *
+                                                      pi *
+                                                      double.parse(
+                                                          lengthController
+                                                              .text) *
+                                                      double.parse(
+                                                          distController.text) *
+                                                      double.parse(
+                                                          dosageController
+                                                              .text)) /
+                                                  double.parse(
+                                                      outPutController.text))
+                                              .toString();
                                       });
                                     }
                                     if (_formKey.currentState.validate()) {
