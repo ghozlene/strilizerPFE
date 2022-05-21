@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_code/formule.dart';
 
 class QRViewExample extends StatefulWidget {
   const QRViewExample({Key? key}) : super(key: key);
@@ -34,67 +35,86 @@ class _QRViewExampleState extends State<QRViewExample> {
       body: Builder(
         builder: (context) => Container(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               if (result != null)
                 result!.code ==
                         'https://www.3dwave.tech/?fbclid=IwAR2WwicJr5W6n3LQCc9ep8IdvTaBg5k4jqdIFgVzfO6gpbdinatkJU-YP6g'
-                    ? Dialog(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0)),
-                        child: Stack(
-                          overflow: Overflow.visible,
-                          alignment: Alignment.topCenter,
-                          children: [
-                            Container(
-                              height: 200,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 70, 10, 10),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'success !!!',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'valid code',
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    RaisedButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      color: Colors.green,
-                                      child: Text(
-                                        'Okay',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+                    ? Center(
+                        child: Expanded(
+                          flex: 20,
+                          child: Stack(alignment: Alignment.center, children: [
                             Positioned(
-                                top: -60,
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.green,
-                                  radius: 60,
-                                  child: Icon(
-                                    Icons.assistant_photo,
-                                    color: Colors.white,
-                                    size: 50,
-                                  ),
-                                )),
-                          ],
-                        ))
+                                child: Dialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(4.0)),
+                                    child: Stack(
+                                      overflow: Overflow.visible,
+                                      alignment: Alignment.topCenter,
+                                      children: [
+                                        Container(
+                                          height: 200,
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 70, 10, 10),
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  'success !!!',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20),
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  'valid code',
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                RaisedButton(
+                                                  onPressed: () {
+                                                    Navigator.pushReplacement(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              MyFlutterForm(),
+                                                        ));
+                                                  },
+                                                  color: Colors.green,
+                                                  child: Text(
+                                                    'Okay',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                            top: -60,
+                                            child: CircleAvatar(
+                                              backgroundColor: Colors.green,
+                                              radius: 60,
+                                              child: Icon(
+                                                Icons.assistant_photo,
+                                                color: Colors.white,
+                                                size: 50,
+                                              ),
+                                            )),
+                                      ],
+                                    ))),
+                          ]),
+                        ),
+                      )
                     : Dialog(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4.0)),
@@ -119,7 +139,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                                       height: 5,
                                     ),
                                     Text(
-                                      'valid code',
+                                      'Wrong code',
                                       style: TextStyle(fontSize: 20),
                                     ),
                                     SizedBox(
@@ -131,7 +151,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                                       },
                                       color: Colors.redAccent,
                                       child: Text(
-                                        'Okay',
+                                        'Cancel',
                                         style: TextStyle(color: Colors.white),
                                       ),
                                     )
@@ -397,4 +417,63 @@ class AdvanceCustomAlertWrong extends StatelessWidget {
           ],
         ));
   }
+}
+
+void showAlert(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (context) => Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+          child: Stack(
+              overflow: Overflow.visible,
+              alignment: Alignment.topCenter,
+              children: [
+                Container(
+                  height: 200,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 70, 10, 10),
+                    child: Column(
+                      children: [
+                        Text(
+                          'success !!!',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'valid code',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        RaisedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          color: Colors.green,
+                          child: Text(
+                            'Okay',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                    top: -60,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.green,
+                      radius: 60,
+                      child: Icon(
+                        Icons.assistant_photo,
+                        color: Colors.white,
+                        size: 50,
+                      ),
+                    )),
+              ])));
 }
