@@ -38,8 +38,13 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Builder(
         builder: (context) => Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/background.png'),
+                  fit: BoxFit.fill)),
           height: MediaQuery.of(context).size.height,
           padding: EdgeInsets.only(top: 30),
           alignment: Alignment.center,
@@ -66,8 +71,14 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                 height: 10.0,
                               ),
                               TextFormField(
+                                cursorColor: Colors.blue,
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(25.0),
+                                    borderSide: BorderSide(
+                                        color: Color.fromARGB(255, 3, 95, 253)),
+                                  ),
                                   suffix: Text('cm'),
                                   suffixStyle:
                                       const TextStyle(color: Colors.green),
@@ -86,7 +97,13 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                               ),
                               TextFormField(
                                 decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(25.0),
+                                      borderSide: BorderSide(
+                                          color:
+                                              Color.fromARGB(255, 3, 95, 253)),
+                                    ),
                                     suffix: Text('W'),
                                     suffixStyle:
                                         const TextStyle(color: Colors.green),
@@ -104,7 +121,12 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                               ),
                               TextFormField(
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(25.0),
+                                    borderSide: BorderSide(
+                                        color: Color.fromARGB(255, 3, 95, 253)),
+                                  ),
                                   suffix: Text('J/cm^2'),
                                   suffixStyle:
                                       const TextStyle(color: Colors.green),
@@ -123,7 +145,12 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                               ),
                               TextFormField(
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(25.0),
+                                    borderSide: BorderSide(
+                                        color: Color.fromARGB(255, 3, 95, 253)),
+                                  ),
                                   suffixStyle:
                                       const TextStyle(color: Colors.green),
                                   suffix: Text('cm'),
@@ -142,7 +169,12 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                               ),
                               TextFormField(
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(25.0),
+                                    borderSide: BorderSide(
+                                        color: Color.fromARGB(255, 3, 95, 253)),
+                                  ),
                                   suffixStyle:
                                       const TextStyle(color: Colors.green),
                                   suffix: Text('min'),
@@ -162,6 +194,10 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                               SizedBox(
                                 width: double.infinity,
                                 child: RaisedButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0),
+                                  ),
                                   color: Colors.blue,
                                   onPressed: () {
                                     if (exposureController.text != "" ||
@@ -204,7 +240,10 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                   child: Text(
                                     'Calculate exposure time',
                                     style: TextStyle(
-                                      fontSize: 18.0,
+                                      color: Colors.white,
+                                      fontFamily: 'Raleway',
+                                      fontStyle: FontStyle.italic,
+                                      fontSize: 22.0,
                                     ),
                                   ),
                                 ),
@@ -215,6 +254,10 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                               SizedBox(
                                 width: double.infinity,
                                 child: RaisedButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0),
+                                  ),
                                   onPressed: () => {},
                                   color: Colors.blue,
                                   textColor: Colors.white,
@@ -223,7 +266,10 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                   child: Text(
                                     'Start sterilizer',
                                     style: TextStyle(
-                                      fontSize: 18.0,
+                                      color: Colors.white,
+                                      fontFamily: 'Raleway',
+                                      fontStyle: FontStyle.italic,
+                                      fontSize: 22.0,
                                     ),
                                   ),
                                 ),
@@ -242,7 +288,12 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                               ),
                               TextFormField(
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(25.0),
+                                    borderSide: BorderSide(
+                                        color: Color.fromARGB(255, 3, 95, 253)),
+                                  ),
                                   suffixStyle:
                                       const TextStyle(color: Colors.green),
                                   suffix: Text('min'),
@@ -262,6 +313,10 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                               SizedBox(
                                 width: double.infinity,
                                 child: RaisedButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0),
+                                  ),
                                   onPressed: () => {},
                                   color: Colors.blue,
                                   textColor: Colors.white,
@@ -270,7 +325,10 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                   child: Text(
                                     'Start sterilizer',
                                     style: TextStyle(
-                                      fontSize: 18.0,
+                                      color: Colors.white,
+                                      fontFamily: 'Raleway',
+                                      fontStyle: FontStyle.italic,
+                                      fontSize: 22.0,
                                     ),
                                   ),
                                 ),
