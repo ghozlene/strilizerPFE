@@ -41,138 +41,164 @@ class _QRViewExampleState extends State<QRViewExample> {
           child: (result != null)
               ? result!.code ==
                       'https://www.3dwave.tech/?fbclid=IwAR2WwicJr5W6n3LQCc9ep8IdvTaBg5k4jqdIFgVzfO6gpbdinatkJU-YP6g'
-                  ? Center(
-                      child: Expanded(
-                        child: Stack(alignment: Alignment.center, children: [
-                          Positioned(
-                              child: Dialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4.0)),
-                                  child: Stack(
-                                    overflow: Overflow.visible,
-                                    alignment: Alignment.topCenter,
-                                    children: [
-                                      Container(
-                                        height: 200,
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              10, 70, 10, 10),
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                'success !!!',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20),
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              Text(
-                                                'valid code',
-                                                style: TextStyle(fontSize: 20),
-                                              ),
-                                              SizedBox(
-                                                height: 20,
-                                              ),
-                                              RaisedButton(
-                                                onPressed: () {
-                                                  Navigator.pushReplacement(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MyFlutterForm(),
-                                                      ));
-                                                },
-                                                color: Colors.green,
-                                                child: Text(
-                                                  'Okay',
+                  ? Container(
+                      color: Colors.black.withOpacity(0.8),
+                      child: Center(
+                        child: Expanded(
+                          child: Stack(alignment: Alignment.center, children: [
+                            Positioned(
+                                child: Dialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(4.0)),
+                                    child: Stack(
+                                      overflow: Overflow.visible,
+                                      alignment: Alignment.topCenter,
+                                      children: [
+                                        Container(
+                                          height: 200,
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 70, 10, 10),
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  'success !!!',
                                                   style: TextStyle(
-                                                      color: Colors.white),
+                                                      color: Colors.green,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20),
                                                 ),
-                                              )
-                                            ],
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  'valid code',
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                RaisedButton(
+                                                  onPressed: () {
+                                                    Navigator.pushReplacement(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              MyFlutterForm(),
+                                                        ));
+                                                  },
+                                                  color: Colors.green,
+                                                  child: Text(
+                                                    'Okay',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Positioned(
-                                          top: -60,
-                                          child: CircleAvatar(
-                                            backgroundColor: Colors.green,
-                                            radius: 60,
-                                            child: Icon(
-                                              Icons.assistant_photo,
-                                              color: Colors.white,
-                                              size: 50,
-                                            ),
-                                          )),
-                                    ],
-                                  ))),
-                        ]),
+                                        Positioned(
+                                            top: -60,
+                                            child: CircleAvatar(
+                                              backgroundColor: Colors.green,
+                                              radius: 60,
+                                              child: Icon(
+                                                Icons.check_outlined,
+                                                color: Colors.white,
+                                                size: 70,
+                                              ),
+                                            )),
+                                      ],
+                                    ))),
+                          ]),
+                        ),
                       ),
                     )
-                  : Dialog(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4.0)),
-                      child: Stack(
-                        overflow: Overflow.visible,
-                        alignment: Alignment.topCenter,
-                        children: [
-                          Container(
-                            height: 200,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(10, 70, 10, 10),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    'fail !!!',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Wrong code',
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  RaisedButton(
-                                    onPressed: () {
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                QRViewExample(),
-                                          ));
-                                    },
-                                    color: Colors.redAccent,
-                                    child: Text(
-                                      'Cancel',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
+                  : Container(
+                      color: Colors.black.withOpacity(0.8),
+                      child: Center(
+                        child: Expanded(
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Positioned(
+                                child: Dialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(4.0)),
+                                    child: Stack(
+                                      overflow: Overflow.visible,
+                                      alignment: Alignment.topCenter,
+                                      children: [
+                                        Container(
+                                          height: 200,
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 70, 10, 10),
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  'fail !!!',
+                                                  style: TextStyle(
+                                                      color: Colors.red,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20),
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  'Wrong code',
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                RaisedButton(
+                                                  onPressed: () {
+                                                    Navigator.pushReplacement(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              QRViewExample(),
+                                                        ));
+                                                  },
+                                                  color: Colors.redAccent,
+                                                  child: Text(
+                                                    'Cancel',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                            top: -60,
+                                            child: CircleAvatar(
+                                              backgroundColor: Colors.redAccent,
+                                              radius: 60,
+                                              child: Icon(
+                                                Icons.close,
+                                                color: Colors.white,
+                                                size: 70,
+                                              ),
+                                            )),
+                                      ],
+                                    )),
+                              )
+                            ],
                           ),
-                          Positioned(
-                              top: -60,
-                              child: CircleAvatar(
-                                backgroundColor: Colors.redAccent,
-                                radius: 60,
-                                child: Icon(
-                                  Icons.assistant_photo,
-                                  color: Colors.white,
-                                  size: 50,
-                                ),
-                              )),
-                        ],
-                      ))
+                        ),
+                      ),
+                    )
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,

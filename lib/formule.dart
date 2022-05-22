@@ -1,4 +1,6 @@
 // @dart=2.9
+library lite_rolling_switch;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
@@ -19,7 +21,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
   var dosageController = TextEditingController();
   var exposureController = TextEditingController();
   var lengthController = TextEditingController();
-
+  bool value = true;
   var pi = 3.143;
 
   @override
@@ -39,7 +41,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
         body: Builder(
             builder: (context) => Container(
                   height: MediaQuery.of(context).size.height,
-                  padding: EdgeInsets.only(top: 80),
+                  padding: EdgeInsets.only(top: 30),
                   alignment: Alignment.center,
                   child: Container(
                     child: Form(
@@ -48,7 +50,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                         padding: EdgeInsets.only(
                           right: 20.0,
                           left: 20.0,
-                          top: 40,
+                          top: 30,
                         ),
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
@@ -58,6 +60,10 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
+                              buildSwitch(),
+                              SizedBox(
+                                height: 10.0,
+                              ),
                               TextFormField(
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -75,7 +81,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                 ],
                               ),
                               SizedBox(
-                                height: 30.0,
+                                height: 10.0,
                               ),
                               TextFormField(
                                 decoration: InputDecoration(
@@ -93,7 +99,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                 ],
                               ),
                               SizedBox(
-                                height: 30.0,
+                                height: 10.0,
                               ),
                               TextFormField(
                                 decoration: InputDecoration(
@@ -112,7 +118,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                 ],
                               ),
                               SizedBox(
-                                height: 30.0,
+                                height: 10.0,
                               ),
                               TextFormField(
                                 decoration: InputDecoration(
@@ -131,7 +137,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                 ],
                               ),
                               SizedBox(
-                                height: 30.0,
+                                height: 10.0,
                               ),
                               TextFormField(
                                 decoration: InputDecoration(
@@ -150,7 +156,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                 ],
                               ),
                               SizedBox(
-                                height: 30.0,
+                                height: 10.0,
                               ),
                               SizedBox(
                                 width: double.infinity,
@@ -222,4 +228,21 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
     }
     return null;
   }
+
+  Widget buildSwitch() => Transform.scale(
+      scale: 2,
+      child: Switch.adaptive(
+          activeColor: Colors.green,
+          inactiveThumbColor: Colors.red,
+          trackColor: MaterialStateProperty.all(Colors.orange),
+
+          // activeColor: Colors.blueAccent,
+          // activeTrackColor: Colors.blue.withOpacity(0.4),
+          // inactiveThumbColor: Colors.orange,
+          // inactiveTrackColor: Colors.black87,
+          splashRadius: 50,
+          value: value,
+          onChanged: (value) => setState(() {
+                this.value = value;
+              })));
 }
