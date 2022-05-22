@@ -38,26 +38,27 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Builder(
-            builder: (context) => Container(
+      body: Builder(
+        builder: (context) => Container(
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.only(top: 30),
+          alignment: Alignment.center,
+          child: Container(
+            child: Form(
+                key: _formKey,
+                child: Container(
+                  padding: EdgeInsets.only(
+                    right: 20.0,
+                    left: 20.0,
+                    top: 30,
+                  ),
+                  width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
-                  padding: EdgeInsets.only(top: 30),
-                  alignment: Alignment.center,
-                  child: Container(
-                    child: Form(
-                      key: _formKey,
-                      child: Container(
-                        padding: EdgeInsets.only(
-                          right: 20.0,
-                          left: 20.0,
-                          top: 30,
-                        ),
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        child: SingleChildScrollView(
-                          keyboardDismissBehavior:
-                              ScrollViewKeyboardDismissBehavior.onDrag,
-                          child: Column(
+                  child: SingleChildScrollView(
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
+                    child: !value
+                        ? (Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
                               buildSwitch(),
@@ -208,13 +209,80 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                   ),
                                 ),
                               ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: RaisedButton(
+                                  onPressed: () => {},
+                                  color: Colors.blue,
+                                  textColor: Colors.white,
+                                  elevation: 2.0,
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Text(
+                                    'Start sterilizer',
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                    ),
+                                  ),
+                                ),
+                              )
                             ],
-                          ),
-                        ),
-                      ),
-                    ),
+                          ))
+                        : (Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              buildSwitch(),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  suffixStyle:
+                                      const TextStyle(color: Colors.green),
+                                  suffix: Text('min'),
+                                  labelText: 'Exposure time',
+                                ),
+                                controller: exposureController,
+                                keyboardType: TextInputType.number,
+                                validator: validateFloat,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp('[. 0-9]'))
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: RaisedButton(
+                                  onPressed: () => {},
+                                  color: Colors.blue,
+                                  textColor: Colors.white,
+                                  elevation: 2.0,
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Text(
+                                    'Start sterilizer',
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )),
                   ),
-                )));
+                )),
+          ),
+        ),
+      ),
+    );
   }
 
 // regex method to validate user phone number
