@@ -23,7 +23,14 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
   var lengthController = TextEditingController();
   bool value = true;
   var pi = 3.143;
+  static const IconData calculate =
+      IconData(0xe121, fontFamily: 'MaterialIcons');
 
+  static const IconData access_time_outlined =
+      IconData(0xee2d, fontFamily: 'MaterialIcons');
+  static const IconData lightbulb_outline =
+      IconData(0xe37c, fontFamily: 'MaterialIcons');
+  static const IconData power = IconData(0xe4e0, fontFamily: 'MaterialIcons');
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -105,6 +112,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                               Color.fromARGB(255, 3, 95, 253)),
                                     ),
                                     suffix: Text('W'),
+                                    suffixIcon: Icon(Icons.power),
                                     suffixStyle:
                                         const TextStyle(color: Colors.green),
                                     labelText: 'Output power'),
@@ -154,6 +162,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                   suffixStyle:
                                       const TextStyle(color: Colors.green),
                                   suffix: Text('cm'),
+                                  suffixIcon: Icon(Icons.lightbulb_rounded),
                                   labelText: 'Length of the lamp',
                                 ),
                                 controller: lengthController,
@@ -179,7 +188,8 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                               ),
                               SizedBox(
                                 width: double.infinity,
-                                child: RaisedButton(
+                                child: RaisedButton.icon(
+                                  icon: Icon(Icons.calculate),
                                   shape: new RoundedRectangleBorder(
                                     borderRadius:
                                         new BorderRadius.circular(30.0),
@@ -230,7 +240,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                   textColor: Colors.white,
                                   elevation: 2.0,
                                   padding: EdgeInsets.all(20.0),
-                                  child: Text(
+                                  label: Text(
                                     'Calculate exposure time',
                                     style: TextStyle(
                                       color: Colors.white,
@@ -289,6 +299,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                   ),
                                   suffixStyle:
                                       const TextStyle(color: Colors.green),
+                                  suffixIcon: Icon(Icons.timer_outlined),
                                   suffix: Text('min'),
                                   labelText: 'Exposure time',
                                 ),

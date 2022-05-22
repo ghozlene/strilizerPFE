@@ -13,6 +13,8 @@ void main() => runApp(MaterialApp(
     ));
 
 class HomePage extends StatelessWidget {
+  static const IconData camera_alt_rounded =
+      IconData(0xf60b, fontFamily: 'MaterialIcons');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,7 +130,8 @@ class HomePage extends StatelessWidget {
                           color: Colors.transparent,
                           width: MediaQuery.of(context).size.width,
                           height: 60,
-                          child: FlatButton(
+                          child: FlatButton.icon(
+                            icon: Icon(Icons.camera_alt_outlined),
                             shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(30.0),
                             ),
@@ -142,7 +145,7 @@ class HomePage extends StatelessWidget {
                             },
                             color: Color.fromARGB(255, 45, 159, 253),
                             textColor: Colors.white,
-                            child: Text(
+                            label: Text(
                               "Start scanning ",
                               style: TextStyle(
                                 color: Colors.white,

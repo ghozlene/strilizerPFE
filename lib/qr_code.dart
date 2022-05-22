@@ -21,7 +21,8 @@ class _QRViewExampleState extends State<QRViewExample> {
   var clicked = 0;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-
+  static const IconData arrow_forward =
+      IconData(0xe09b, fontFamily: 'MaterialIcons', matchTextDirection: true);
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
   @override
@@ -63,7 +64,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                                             child: Column(
                                               children: [
                                                 Text(
-                                                  'success !!!',
+                                                  'Correct QR Code!',
                                                   style: TextStyle(
                                                       color: Colors.green,
                                                       fontWeight:
@@ -74,14 +75,16 @@ class _QRViewExampleState extends State<QRViewExample> {
                                                   height: 5,
                                                 ),
                                                 Text(
-                                                  'valid code',
+                                                  'you can go to the next step',
                                                   style:
                                                       TextStyle(fontSize: 20),
                                                 ),
                                                 SizedBox(
                                                   height: 20,
                                                 ),
-                                                RaisedButton(
+                                                RaisedButton.icon(
+                                                  icon: Icon(Icons
+                                                      .arrow_forward_outlined),
                                                   onPressed: () {
                                                     Navigator.pushReplacement(
                                                         context,
@@ -91,8 +94,8 @@ class _QRViewExampleState extends State<QRViewExample> {
                                                         ));
                                                   },
                                                   color: Colors.green,
-                                                  child: Text(
-                                                    'Okay',
+                                                  label: Text(
+                                                    'Next',
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   ),
@@ -142,7 +145,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                                             child: Column(
                                               children: [
                                                 Text(
-                                                  'fail !!!',
+                                                  'Wrong QR Code!',
                                                   style: TextStyle(
                                                       color: Colors.red,
                                                       fontWeight:
@@ -153,7 +156,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                                                   height: 5,
                                                 ),
                                                 Text(
-                                                  'Wrong code',
+                                                  'Try correct QR Code please!',
                                                   style:
                                                       TextStyle(fontSize: 20),
                                                 ),
@@ -171,7 +174,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                                                   },
                                                   color: Colors.redAccent,
                                                   child: Text(
-                                                    'Cancel',
+                                                    'Try again',
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   ),
