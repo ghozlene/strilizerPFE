@@ -140,7 +140,7 @@ class HomePage extends StatelessWidget {
                                 ),
                               );
                             },
-                            color: Colors.blue,
+                            color: Color.fromARGB(255, 45, 159, 253),
                             textColor: Colors.white,
                             child: Text(
                               "Start scanning ",

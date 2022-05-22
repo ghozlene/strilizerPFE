@@ -167,27 +167,13 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                               SizedBox(
                                 height: 10.0,
                               ),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(25.0),
-                                    borderSide: BorderSide(
-                                        color: Color.fromARGB(255, 3, 95, 253)),
-                                  ),
-                                  suffixStyle:
-                                      const TextStyle(color: Colors.green),
-                                  suffix: Text('min'),
-                                  labelText: 'Exposure time',
-                                ),
-                                controller: exposureController,
-                                keyboardType: TextInputType.number,
-                                validator: validateFloat,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp('[. 0-9]'))
-                                ],
-                              ),
+                              Text('Exposure Time=' + exposureController.text,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Raleway',
+                                    fontStyle: FontStyle.italic,
+                                    fontSize: 22.0,
+                                  )),
                               SizedBox(
                                 height: 10.0,
                               ),
@@ -198,7 +184,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                     borderRadius:
                                         new BorderRadius.circular(30.0),
                                   ),
-                                  color: Colors.blue,
+                                  color: Color.fromARGB(255, 45, 159, 253),
                                   onPressed: () {
                                     if (exposureController.text != "" ||
                                         exposureController.text == '') {
@@ -223,7 +209,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                                               .text)) /
                                                   double.parse(
                                                       outPutController.text))
-                                              .toString();
+                                              .toStringAsFixed(2);
                                       });
                                     }
                                     if (_formKey.currentState.validate()) {
@@ -231,6 +217,13 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                           .showSnackBar(SnackBar(
                                         content:
                                             Text('Form Validated, No errors'),
+                                      ));
+                                    } else {
+                                      Scaffold.of(context)
+                                          .showSnackBar(SnackBar(
+                                        backgroundColor: Colors.red,
+                                        content: Text(
+                                            'Form is not valid, verify errors'),
                                       ));
                                     }
                                   },
@@ -259,12 +252,12 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                         new BorderRadius.circular(30.0),
                                   ),
                                   onPressed: () => {},
-                                  color: Colors.blue,
+                                  color: Color.fromARGB(255, 45, 159, 253),
                                   textColor: Colors.white,
                                   elevation: 2.0,
                                   padding: EdgeInsets.all(20.0),
                                   child: Text(
-                                    'Start sterilizer',
+                                    'Start sterilizing',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'Raleway',
@@ -318,12 +311,12 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                         new BorderRadius.circular(30.0),
                                   ),
                                   onPressed: () => {},
-                                  color: Colors.blue,
+                                  color: Color.fromARGB(255, 45, 159, 253),
                                   textColor: Colors.white,
                                   elevation: 2.0,
                                   padding: EdgeInsets.all(20.0),
                                   child: Text(
-                                    'Start sterilizer',
+                                    'Start sterilizing',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'Raleway',
