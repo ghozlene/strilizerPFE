@@ -302,7 +302,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
       child: Switch.adaptive(
           activeColor: Colors.green,
           inactiveThumbColor: Colors.red,
-          trackColor: MaterialStateProperty.all(Colors.orange),
+          trackColor: MaterialStateProperty.all(Colors.grey[400]),
 
           // activeColor: Colors.blueAccent,
           // activeTrackColor: Colors.blue.withOpacity(0.4),
