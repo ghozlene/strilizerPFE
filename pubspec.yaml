@@ -40,6 +40,7 @@ dependencies:
   toggle_switch: ^2.0.1
   web_socket_channel: ^2.2.0
   flutter_ringtone_player: ^3.2.0
+  slide_countdown_clock: ^1.0.3
 
 dev_dependencies:
   flutter_test:
