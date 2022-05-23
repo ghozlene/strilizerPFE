@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
+import 'package:qr_code/websocketLed.dart';
+
 class MyFlutterForm extends StatefulWidget {
   @override
   _MyFlutterFormState createState() => _MyFlutterFormState();
@@ -21,6 +23,7 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
   var dosageController = TextEditingController();
   var exposureController = TextEditingController();
   var lengthController = TextEditingController();
+
   bool value = true;
   var pi = 3.143;
   static const IconData calculate =
@@ -261,7 +264,8 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                     borderRadius:
                                         new BorderRadius.circular(30.0),
                                   ),
-                                  onPressed: () => {},
+                                  onPressed: () =>
+                                      {_sendDataToWebSocketScreen(context)},
                                   color: Color.fromARGB(255, 45, 159, 253),
                                   textColor: Colors.white,
                                   elevation: 2.0,
@@ -321,7 +325,8 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                     borderRadius:
                                         new BorderRadius.circular(30.0),
                                   ),
-                                  onPressed: () => {},
+                                  onPressed: () =>
+                                      {_sendDataToWebSocketScreen(context)},
                                   color: Color.fromARGB(255, 45, 159, 253),
                                   textColor: Colors.white,
                                   elevation: 2.0,
@@ -375,4 +380,13 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
           onChanged: (value) => setState(() {
                 this.value = value;
               })));
+
+  void _sendDataToWebSocketScreen(BuildContext context) {
+    String textToSend = exposureController.text;
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => WebSocketLed(text: textToSend),
+        ));
+  }
 }
