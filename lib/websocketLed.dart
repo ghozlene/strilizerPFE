@@ -124,138 +124,143 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        Expanded(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              SizedBox(
-                  width: 300,
-                  height: 300,
-                  child: controller.duration < Duration(seconds: 10)
-                      ? CircularProgressIndicator(
-                          color: Colors.red,
-                          backgroundColor: Colors.grey.shade300,
-                          value: progress,
-                          strokeWidth: 6,
-                        )
-                      : CircularProgressIndicator(
-                          color: Colors.green,
-                          backgroundColor: Colors.grey.shade300,
-                          value: progress,
-                          strokeWidth: 6,
-                        )),
-              GestureDetector(
-                onTap: () {
-                  if (controller.isDismissed) {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) => Container(
-                        height: 300,
-                        child: CupertinoTimerPicker(
-                          initialTimerDuration: controller.duration,
-                          onTimerDurationChanged: (time) {
-                            setState(() {
-                              controller.duration = time;
-                            });
-                          },
+      body: Builder(
+        builder: (context) => Column(children: [
+          Expanded(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                    width: 300,
+                    height: 300,
+                    child: controller.duration < Duration(seconds: 10)
+                        ? CircularProgressIndicator(
+                            color: Colors.red,
+                            backgroundColor: Colors.grey.shade300,
+                            value: progress,
+                            strokeWidth: 6,
+                          )
+                        : CircularProgressIndicator(
+                            color: Colors.green,
+                            backgroundColor: Colors.grey.shade300,
+                            value: progress,
+                            strokeWidth: 6,
+                          )),
+                GestureDetector(
+                  onTap: () {
+                    if (controller.isDismissed) {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) => Container(
+                          height: 300,
+                          child: CupertinoTimerPicker(
+                            initialTimerDuration: controller.duration,
+                            onTimerDurationChanged: (time) {
+                              setState(() {
+                                controller.duration = time;
+                              });
+                            },
+                          ),
                         ),
+                      );
+                    }
+                  },
+                  child: AnimatedBuilder(
+                    animation: controller,
+                    builder: (context, child) => Text(
+                      countText,
+                      style: TextStyle(
+                        fontSize: 60,
+                        fontWeight: FontWeight.bold,
                       ),
-                    );
-                  }
-                },
-                child: AnimatedBuilder(
-                  animation: controller,
-                  builder: (context, child) => Text(
-                    countText,
-                    style: TextStyle(
-                      fontSize: 60,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  if (controller.isAnimating) {
-                    controller.stop();
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    if (controller.isAnimating) {
+                      controller.stop();
+                      setState(() {
+                        sendcmd("poweroff");
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          duration: Duration(milliseconds: 500),
+                          backgroundColor: Colors.red.withOpacity(0.8),
+                          content: Text('LED is off',
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontStyle: FontStyle.italic,
+                                fontSize: 18.0,
+                              )),
+                        ));
+                        isPlaying = false;
+                      });
+                    } else {
+                      controller.reverse(
+                          from: controller.value == 0 ? 1.0 : controller.value);
+                      setState(() {
+                        sendcmd("poweroff");
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          duration: Duration(milliseconds: 500),
+                          backgroundColor: Colors.green.withOpacity(0.8),
+                          content: Text(
+                            'LED is on',
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic,
+                              fontSize: 18.0,
+                            ),
+                          ),
+                        ));
+                        isPlaying = true;
+                      });
+                    }
+                  },
+                  child: RoundButton(
+                    icon: isPlaying == true ? Icons.pause : Icons.play_arrow,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    controller.reset();
+
                     setState(() {
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        duration: Duration(milliseconds: 500),
+                        backgroundColor: Colors.orange.withOpacity(0.8),
+                        content: Text(
+                          'Reset has been clicked',
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontStyle: FontStyle.italic,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                      ));
+                      ledstatus = false;
+                      sendcmd("poweroff");
                       isPlaying = false;
                     });
-                  } else {
-                    controller.reverse(
-                        from: controller.value == 0 ? 1.0 : controller.value);
-                    setState(() {
-                      isPlaying = true;
-                    });
-                  }
-                },
-                child: RoundButton(
-                  icon: isPlaying == true ? Icons.pause : Icons.play_arrow,
+                  },
+                  child: RoundButton(
+                    icon: Icons.stop,
+                  ),
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  controller.reset();
-                  setState(() {
-                    isPlaying = false;
-                  });
-                },
-                child: RoundButton(
-                  icon: Icons.stop,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-            alignment: Alignment.topCenter, //inner widget alignment to center
-            padding: EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Container(
-                    child: connected
-                        ? Text("WEBSOCKET: CONNECTED")
-                        : Text("DISCONNECTED")),
-                Container(
-                    child:
-                        isPlaying ? Text("LED IS: ON") : Text("LED IS: OFF")),
-                Container(
-                    margin: EdgeInsets.only(top: 30),
-                    child: FlatButton(
-                        //button to start scanning
-                        color: Colors.redAccent,
-                        colorBrightness: Brightness.dark,
-                        onPressed: () {
-                          //on button press
-                          if (ledstatus) {
-                            //if ledstatus is true, then turn off the led
-                            //if led is on, turn off
-                            sendcmd("poweroff");
-                            ledstatus = false;
-                          } else {
-                            //if ledstatus is false, then turn on the led
-                            //if led is off, turn on
-                            sendcmd("poweron");
-                            ledstatus = true;
-                          }
-                          setState(() {});
-                        },
-                        child: ledstatus
-                            ? Text("TURN LED OFF")
-                            : Text("TURN LED ON"))),
-                Text(widget.text),
               ],
-            )),
-      ]),
+            ),
+          ),
+        ]),
+      ),
     );
   }
 }
