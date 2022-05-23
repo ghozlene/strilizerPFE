@@ -125,94 +125,129 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Builder(
-        builder: (context) => Column(children: [
-          Expanded(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                SizedBox(
-                    width: 300,
-                    height: 300,
-                    child: controller.duration < Duration(seconds: 10)
-                        ? CircularProgressIndicator(
-                            color: Colors.red,
-                            backgroundColor: Colors.grey.shade300,
-                            value: progress,
-                            strokeWidth: 6,
-                          )
-                        : CircularProgressIndicator(
-                            color: Colors.green,
-                            backgroundColor: Colors.grey.shade300,
-                            value: progress,
-                            strokeWidth: 6,
-                          )),
-                GestureDetector(
-                  onTap: () {
-                    if (controller.isDismissed) {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) => Container(
-                          height: 300,
-                          child: CupertinoTimerPicker(
-                            initialTimerDuration: controller.duration,
-                            onTimerDurationChanged: (time) {
-                              setState(() {
-                                controller.duration = time;
-                              });
-                            },
+        builder: (context) => Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/background.png'),
+                  fit: BoxFit.fill)),
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.only(top: 30),
+          alignment: Alignment.center,
+          child: Column(children: [
+            Expanded(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox(
+                      width: 300,
+                      height: 300,
+                      child: controller.duration < Duration(seconds: 10)
+                          ? CircularProgressIndicator(
+                              color: Colors.red,
+                              backgroundColor: Colors.grey.shade300,
+                              value: progress,
+                              strokeWidth: 6,
+                            )
+                          : CircularProgressIndicator(
+                              color: Colors.green,
+                              backgroundColor: Colors.grey.shade300,
+                              value: progress,
+                              strokeWidth: 6,
+                            )),
+                  GestureDetector(
+                    onTap: () {
+                      if (controller.isDismissed) {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) => Container(
+                            height: 300,
+                            child: CupertinoTimerPicker(
+                              initialTimerDuration: controller.duration,
+                              onTimerDurationChanged: (time) {
+                                setState(() {
+                                  controller.duration = time;
+                                });
+                              },
+                            ),
                           ),
+                        );
+                      }
+                    },
+                    child: AnimatedBuilder(
+                      animation: controller,
+                      builder: (context, child) => Text(
+                        countText,
+                        style: TextStyle(
+                          fontSize: 60,
+                          fontWeight: FontWeight.bold,
                         ),
-                      );
-                    }
-                  },
-                  child: AnimatedBuilder(
-                    animation: controller,
-                    builder: (context, child) => Text(
-                      countText,
-                      style: TextStyle(
-                        fontSize: 60,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    if (controller.isAnimating) {
-                      controller.stop();
-                      setState(() {
-                        sendcmd("poweroff");
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          duration: Duration(milliseconds: 500),
-                          backgroundColor: Colors.red.withOpacity(0.8),
-                          content: Text('LED is off',
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      if (controller.isAnimating) {
+                        controller.stop();
+                        setState(() {
+                          sendcmd("poweroff");
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            duration: Duration(milliseconds: 500),
+                            backgroundColor: Colors.red.withOpacity(0.8),
+                            content: Text('LED is off',
+                                textAlign: TextAlign.justify,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontStyle: FontStyle.italic,
+                                  fontSize: 18.0,
+                                )),
+                          ));
+                          isPlaying = false;
+                        });
+                      } else {
+                        controller.reverse(
+                            from:
+                                controller.value == 0 ? 1.0 : controller.value);
+                        setState(() {
+                          sendcmd("poweroff");
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            duration: Duration(milliseconds: 500),
+                            backgroundColor: Colors.green.withOpacity(0.8),
+                            content: Text(
+                              'LED is on',
                               textAlign: TextAlign.justify,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontStyle: FontStyle.italic,
                                 fontSize: 18.0,
-                              )),
-                        ));
-                        isPlaying = false;
-                      });
-                    } else {
-                      controller.reverse(
-                          from: controller.value == 0 ? 1.0 : controller.value);
+                              ),
+                            ),
+                          ));
+                          isPlaying = true;
+                        });
+                      }
+                    },
+                    child: RoundButton(
+                      icon: isPlaying == true ? Icons.pause : Icons.play_arrow,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      controller.reset();
+
                       setState(() {
-                        sendcmd("poweroff");
                         Scaffold.of(context).showSnackBar(SnackBar(
                           duration: Duration(milliseconds: 500),
-                          backgroundColor: Colors.green.withOpacity(0.8),
+                          backgroundColor: Colors.orange.withOpacity(0.8),
                           content: Text(
-                            'LED is on',
+                            'Reset has been clicked',
                             textAlign: TextAlign.justify,
                             style: TextStyle(
                               color: Colors.white,
@@ -221,45 +256,20 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
                             ),
                           ),
                         ));
-                        isPlaying = true;
+                        ledstatus = false;
+                        sendcmd("poweroff");
+                        isPlaying = false;
                       });
-                    }
-                  },
-                  child: RoundButton(
-                    icon: isPlaying == true ? Icons.pause : Icons.play_arrow,
+                    },
+                    child: RoundButton(
+                      icon: Icons.stop_sharp,
+                    ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    controller.reset();
-
-                    setState(() {
-                      Scaffold.of(context).showSnackBar(SnackBar(
-                        duration: Duration(milliseconds: 500),
-                        backgroundColor: Colors.orange.withOpacity(0.8),
-                        content: Text(
-                          'Reset has been clicked',
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontStyle: FontStyle.italic,
-                            fontSize: 18.0,
-                          ),
-                        ),
-                      ));
-                      ledstatus = false;
-                      sendcmd("poweroff");
-                      isPlaying = false;
-                    });
-                  },
-                  child: RoundButton(
-                    icon: Icons.stop,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ]),
+          ]),
+        ),
       ),
     );
   }
