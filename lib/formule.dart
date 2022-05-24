@@ -4,7 +4,7 @@ library lite_rolling_switch;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
-
+import 'package:page_transition/page_transition.dart';
 import 'package:qr_code/websocketLed.dart';
 
 class MyFlutterForm extends StatefulWidget {
@@ -402,11 +402,14 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
         textToSend = double.parse(exposureController.text);
       });
     }
-
     Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => WebSocketLed(text: textToSend),
+        PageTransition(
+          duration: Duration(milliseconds: 400),
+          curve: Curves.linear,
+          type: PageTransitionType.leftToRight,
+          alignment: Alignment.topCenter,
+          child: WebSocketLed(text: textToSend),
         ));
   }
 }
