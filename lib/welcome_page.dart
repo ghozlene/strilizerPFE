@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_code/Animation/FadeAnimation.dart';
-
+import 'package:page_transition/page_transition.dart';
 import 'package:qr_code/qr_code.dart';
 
 void main() => runApp(MaterialApp(
@@ -138,9 +138,12 @@ class HomePage extends StatelessWidget {
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (context) => QRViewExample(),
-                                ),
+                                PageTransition(
+                                    duration: Duration(milliseconds: 700),
+                                    curve: Curves.linear,
+                                    type: PageTransitionType.scale,
+                                    alignment: Alignment.topCenter,
+                                    child: QRViewExample()),
                               );
                             },
                             color: Color.fromARGB(255, 45, 159, 253),

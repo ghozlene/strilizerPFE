@@ -264,8 +264,16 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                     borderRadius:
                                         new BorderRadius.circular(30.0),
                                   ),
-                                  onPressed: () =>
-                                      {_sendDataToWebSocketScreen(context)},
+                                  onPressed: () => {
+                                    if (distController.text != '' &&
+                                        dosageController.text != '' &&
+                                        lengthController.text != '' &&
+                                        outPutController.text != '' &&
+                                        exposureController.text == '')
+                                      {}
+                                    else if (exposureController.text != '')
+                                      {_sendDataToWebSocketScreen(context)}
+                                  },
                                   color: Color.fromARGB(255, 45, 159, 253),
                                   textColor: Colors.white,
                                   elevation: 2.0,
@@ -325,8 +333,14 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
                                     borderRadius:
                                         new BorderRadius.circular(30.0),
                                   ),
-                                  onPressed: () =>
-                                      {_sendDataToWebSocketScreen(context)},
+                                  onPressed: () => {
+                                    if (exposureController.text != '')
+                                      {
+                                        setState(() {
+                                          _sendDataToWebSocketScreen(context);
+                                        }),
+                                      }
+                                  },
                                   color: Color.fromARGB(255, 45, 159, 253),
                                   textColor: Colors.white,
                                   elevation: 2.0,
@@ -382,7 +396,13 @@ class _MyFlutterFormState extends State<MyFlutterForm> {
               })));
 
   void _sendDataToWebSocketScreen(BuildContext context) {
-    String textToSend = exposureController.text;
+    double textToSend = 0;
+    if (exposureController.text != '') {
+      setState(() {
+        textToSend = double.parse(exposureController.text);
+      });
+    }
+
     Navigator.push(
         context,
         MaterialPageRoute(

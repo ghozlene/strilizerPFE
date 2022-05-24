@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 //apply this class on home: attribute at MaterialApp()
 class WebSocketLed extends StatefulWidget {
   WebSocketLed({Key key, @required this.text}) : super(key: key);
-  final String text;
+  final double text;
   @override
   _WebSocketLed createState() => _WebSocketLed();
 }
@@ -41,10 +41,10 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
   void initState() {
     ledstatus = false; //initially leadstatus is off so its FALSE
     connected = false;
-    int timer = int.parse(widget.text);
+    double timer = widget.text;
     controller = AnimationController(
       vsync: this,
-      duration: Duration(minutes: timer),
+      duration: Duration(minutes: timer.toInt()),
     );
     controller.addListener(() {
       notify();
@@ -160,6 +160,9 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
                         showModalBottomSheet(
                           context: context,
                           builder: (context) => Container(
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
                             height: 300,
                             child: CupertinoTimerPicker(
                               initialTimerDuration: controller.duration,
@@ -201,13 +204,21 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
                           Scaffold.of(context).showSnackBar(SnackBar(
                             duration: Duration(milliseconds: 500),
                             backgroundColor: Colors.red.withOpacity(0.8),
-                            content: Text('LED is off',
+                            content: Row(children: <Widget>[
+                              Icon(
+                                Icons.lightbulb,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                'led is OFF',
                                 textAlign: TextAlign.justify,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontStyle: FontStyle.italic,
                                   fontSize: 18.0,
-                                )),
+                                ),
+                              )
+                            ]),
                           ));
                           isPlaying = false;
                         });
@@ -220,15 +231,21 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
                           Scaffold.of(context).showSnackBar(SnackBar(
                             duration: Duration(milliseconds: 500),
                             backgroundColor: Colors.green.withOpacity(0.8),
-                            content: Text(
-                              'LED is on',
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontStyle: FontStyle.italic,
-                                fontSize: 18.0,
+                            content: Row(children: <Widget>[
+                              Icon(
+                                Icons.lightbulb,
+                                color: Colors.yellow,
                               ),
-                            ),
+                              Text(
+                                'led is ON',
+                                textAlign: TextAlign.justify,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontStyle: FontStyle.italic,
+                                  fontSize: 18.0,
+                                ),
+                              )
+                            ]),
                           ));
                           isPlaying = true;
                         });
@@ -246,15 +263,21 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
                         Scaffold.of(context).showSnackBar(SnackBar(
                           duration: Duration(milliseconds: 500),
                           backgroundColor: Colors.orange.withOpacity(0.8),
-                          content: Text(
-                            'Reset has been clicked',
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(
+                          content: Row(children: <Widget>[
+                            Icon(
+                              Icons.lightbulb,
                               color: Colors.white,
-                              fontStyle: FontStyle.italic,
-                              fontSize: 18.0,
                             ),
-                          ),
+                            Text(
+                              'Reset has been clicked',
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontStyle: FontStyle.italic,
+                                fontSize: 18.0,
+                              ),
+                            )
+                          ]),
                         ));
                         ledstatus = false;
                         sendcmd("poweroff");

@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_code/formule.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:page_transition/page_transition.dart';
 
 class QRViewExample extends StatefulWidget {
   const QRViewExample({Key? key}) : super(key: key);
@@ -86,12 +87,20 @@ class _QRViewExampleState extends State<QRViewExample> {
                                                   icon: Icon(Icons
                                                       .arrow_forward_outlined),
                                                   onPressed: () {
-                                                    Navigator.pushReplacement(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              MyFlutterForm(),
-                                                        ));
+                                                    Navigator.push(
+                                                      context,
+                                                      PageTransition(
+                                                          duration: Duration(
+                                                              milliseconds:
+                                                                  700),
+                                                          curve: Curves.linear,
+                                                          type: PageTransitionType
+                                                              .rightToLeftWithFade,
+                                                          alignment: Alignment
+                                                              .topCenter,
+                                                          child:
+                                                              MyFlutterForm()),
+                                                    );
                                                   },
                                                   color: Colors.green,
                                                   label: Text(
@@ -167,10 +176,19 @@ class _QRViewExampleState extends State<QRViewExample> {
                                                   onPressed: () {
                                                     Navigator.pushReplacement(
                                                         context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              QRViewExample(),
-                                                        ));
+                                                        PageTransition(
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    1000),
+                                                            curve:
+                                                                Curves.linear,
+                                                            type:
+                                                                PageTransitionType
+                                                                    .fade,
+                                                            alignment: Alignment
+                                                                .topCenter,
+                                                            child:
+                                                                QRViewExample()));
                                                   },
                                                   color: Colors.redAccent,
                                                   child: Text(
