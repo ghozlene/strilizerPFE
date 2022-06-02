@@ -103,7 +103,7 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
   }
 
   Future<void> sendcmd(String cmd) async {
-    if (connected == true && isPlaying && controller.duration != 0) {
+    if (connected == true) {
       if (ledstatus == false && cmd != "poweron" && cmd != "poweroff") {
         print("Send the valid command");
       } else {
@@ -227,7 +227,7 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
                             from:
                                 controller.value == 0 ? 1.0 : controller.value);
                         setState(() {
-                          sendcmd("poweroff");
+                          sendcmd("poweron");
                           Scaffold.of(context).showSnackBar(SnackBar(
                             duration: Duration(milliseconds: 500),
                             backgroundColor: Colors.green.withOpacity(0.8),
