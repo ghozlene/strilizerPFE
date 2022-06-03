@@ -31,6 +31,13 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
 
   double progress = 1.0;
 
+  void turnOff() {
+    if (countText == '0:00:00') {
+      ledstatus = false;
+      sendcmd("poweroff");
+    }
+  }
+
   void notify() {
     if (countText == '0:00:00') {
       FlutterRingtonePlayer.playNotification();
@@ -46,8 +53,17 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
       vsync: this,
       duration: Duration(minutes: timer.toInt()),
     );
+    controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        ledstatus = false;
+        isPlaying = false;
+        sendcmd("poweroff");
+      }
+      ;
+    });
     controller.addListener(() {
       notify();
+      turnOff();
       if (controller.isAnimating) {
         setState(() {
           progress = controller.value;
@@ -68,11 +84,20 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
     super.initState();
   }
 
+  bool etatCapteur() {
+    if (ledstatus == false) {
+      controller.stop();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   channelconnect() {
     //function to connect
     try {
       channel = IOWebSocketChannel.connect(
-          "ws://192.168.1.17:81"); //channel IP : Port
+          "ws://192.168.1.18:81"); //channel IP : Port
       channel.stream.listen(
         (message) {
           print(message);
@@ -167,9 +192,17 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
                             child: CupertinoTimerPicker(
                               initialTimerDuration: controller.duration,
                               onTimerDurationChanged: (time) {
-                                setState(() {
-                                  controller.duration = time;
-                                });
+                                if (time == 0) {
+                                  ledstatus = false;
+                                } else if (ledstatus == false) {
+                                  setState(() {
+                                    controller.stop();
+                                  });
+                                } else {
+                                  setState(() {
+                                    controller.duration = time;
+                                  });
+                                }
                               },
                             ),
                           ),
@@ -179,7 +212,11 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
                     child: AnimatedBuilder(
                       animation: controller,
                       builder: (context, child) => Text(
-                        countText,
+                        ledstatus
+                            ? etatCapteur() == false
+                            : countText == '00:00:00'
+                                ? {sendcmd("poweroff")}
+                                : countText,
                         style: TextStyle(
                           fontSize: 60,
                           fontWeight: FontWeight.bold,
