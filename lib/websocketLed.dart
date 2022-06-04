@@ -31,17 +31,25 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
 
   double progress = 1.0;
 
-  void turnOff() {
+  void notify() {
     if (countText == '0:00:00') {
-      ledstatus = false;
       sendcmd("poweroff");
+      FlutterRingtonePlayer.playNotification();
     }
   }
 
-  void notify() {
-    if (countText == '0:00:00') {
+  String etatCapteur() {
+    if (ledstatus == false) {
+      if (controller.isAnimating) {
+        setState(() {
+          controller.stop();
+        });
+      }
+      sendcmd("poweroff");
       FlutterRingtonePlayer.playNotification();
     }
+
+    return countText;
   }
 
   @override
@@ -53,18 +61,9 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
       vsync: this,
       duration: Duration(minutes: timer.toInt()),
     );
-    controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        ledstatus = false;
-        isPlaying = false;
-        controller.stop();
-        sendcmd("poweroff");
-      }
-      ;
-    });
     controller.addListener(() {
+      etatCapteur();
       notify();
-      turnOff();
       if (controller.isAnimating) {
         setState(() {
           progress = controller.value;
@@ -76,6 +75,7 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
         });
       }
     });
+
 //initially connection status is "NO" so its FALSE
 
     Future.delayed(Duration.zero, () async {
@@ -83,15 +83,6 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
     });
 
     super.initState();
-  }
-
-  bool etatCapteur() {
-    if (ledstatus == false) {
-      controller.stop();
-      controller.duration = controller.duration;
-
-      return true;
-    }
   }
 
   channelconnect() {
@@ -193,7 +184,9 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
                             child: CupertinoTimerPicker(
                               initialTimerDuration: controller.duration,
                               onTimerDurationChanged: (time) {
-                                controller.duration = time;
+                                setState(() {
+                                  controller.duration = time;
+                                });
                               },
                             ),
                           ),
