@@ -57,6 +57,7 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
       if (status == AnimationStatus.completed) {
         ledstatus = false;
         isPlaying = false;
+        controller.stop();
         sendcmd("poweroff");
       }
       ;
@@ -87,9 +88,9 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
   bool etatCapteur() {
     if (ledstatus == false) {
       controller.stop();
+      controller.duration = controller.duration;
+
       return true;
-    } else {
-      return false;
     }
   }
 
@@ -192,17 +193,7 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
                             child: CupertinoTimerPicker(
                               initialTimerDuration: controller.duration,
                               onTimerDurationChanged: (time) {
-                                if (time == 0) {
-                                  ledstatus = false;
-                                } else if (ledstatus == false) {
-                                  setState(() {
-                                    controller.stop();
-                                  });
-                                } else {
-                                  setState(() {
-                                    controller.duration = time;
-                                  });
-                                }
+                                controller.duration = time;
                               },
                             ),
                           ),
@@ -213,7 +204,7 @@ class _WebSocketLed extends State<WebSocketLed> with TickerProviderStateMixin {
                       animation: controller,
                       builder: (context, child) => Text(
                         ledstatus
-                            ? etatCapteur() == false
+                            ? etatCapteur()
                             : countText == '00:00:00'
                                 ? {sendcmd("poweroff")}
                                 : countText,
